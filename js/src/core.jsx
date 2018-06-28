@@ -1,7 +1,23 @@
 import React, { PropTypes } from 'react'
 import { Input, Card } from 'semantic-ui-react'
+import {
+	BrowserRouter as Router,
+	Route,
+	Link
+} from 'react-router-dom'
 
+const ConRouter = () => (
+	<Router>
+		<div>
+		<Route path="/" component={Container} />
+		<Route path="/:marcid" component={Viewer} />
+		</div>
+	</Router>
+)
 
+const Viewer = ({match}) => (
+	<h1>Hello {match.params.marcid}!</h1>
+)
 
 class Container extends React.Component {
 	render(){
@@ -19,7 +35,7 @@ class List extends React.Component {
 			fetch("/marc")
 				.then(r => r.json())
 				.then(d => this.setState({records: d}))
-		}, 1000);
+		}, 5000);
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
@@ -28,7 +44,7 @@ class List extends React.Component {
 		let a = this.state.records.map(e => (<li>
 			<Card>
 				<Card.Content>
-					<Card.Header>{e}</Card.Header>
+					<Card.Header><Link to={`/${e}`}>{e}</Link></Card.Header>
 				</Card.Content>
 			</Card>
 			</li>))
@@ -65,4 +81,4 @@ class UPCInput extends React.Component {
 }
 
 
-export default Container;
+export default ConRouter;
