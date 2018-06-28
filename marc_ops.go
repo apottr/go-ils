@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -50,6 +51,26 @@ func saveMARC(r *marc.Record) error {
 		return err
 	}
 	return nil
+}
+
+func getMARCRecords() (string, error) {
+	f, err := os.Open("records")
+	if err != nil {
+		return "", err
+	}
+	s, err := f.Readdirnames(0)
+	out := []string{}
+	for _, item := range s {
+		if item != ".gitignore" {
+			out = append(out, item)
+		}
+	}
+	var b []byte
+	b, err = json.Marshal(out)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s", b), nil
 }
 
 func aaaa() {
