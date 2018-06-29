@@ -30,6 +30,10 @@ func setDFieldMARC(r *marc.Record, tag, sf, value string) {
 	r.AddDField(df)
 }
 
+func convertMARC(r *marc.Record) string {
+	return ""
+}
+
 func setTypeMARC(r *marc.Record, tstr string) {
 	setCFieldMARC(r, "006", tstr)
 }

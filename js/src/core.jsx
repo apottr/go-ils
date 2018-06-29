@@ -16,9 +16,25 @@ const ConRouter = () => (
 	</Router>
 )
 
-const Viewer = ({match}) => (
-	<h1>Hello {match.params.marcid}!</h1>
-)
+class Viewer extends React.Component {
+	constructor(props){
+		super(props)
+		this.state = {}
+	}
+	render(){
+		return (
+			<Table celled>
+				<Table.Header>
+					<Table.HeaderCell></Table.HeaderCell>
+					<Table.HeaderCell></Table.HeaderCell>
+				</Table.Header>
+				<Table.Body>
+					{}
+				</Table.Body>
+			</Table>
+		)
+	}
+}
 
 const Container = () => (
 	<div>
