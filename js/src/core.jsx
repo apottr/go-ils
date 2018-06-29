@@ -3,15 +3,16 @@ import { Input, Card } from 'semantic-ui-react'
 import {
 	BrowserRouter as Router,
 	Route,
-	Link
+	Link,
+	Switch
 } from 'react-router-dom'
 
 const ConRouter = () => (
 	<Router>
-		<div>
-		<Route path="/" component={Container} />
-		<Route path="/:marcid" component={Viewer} />
-		</div>
+		<Switch>
+			<Route exact path="/" component={Container} />
+			<Route path="/:marcid" component={Viewer} />
+		</Switch>
 	</Router>
 )
 
@@ -19,11 +20,12 @@ const Viewer = ({match}) => (
 	<h1>Hello {match.params.marcid}!</h1>
 )
 
-class Container extends React.Component {
-	render(){
-		return (<div><List /><UPCInput /></div>)
-	}
-}
+const Container = () => (
+	<div>
+		<List />
+		<UPCInput />
+	</div>
+)
 
 class List extends React.Component {
 	constructor(props){

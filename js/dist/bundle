@@ -500,23 +500,6 @@ module.exports = _objectSpread;
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(94)('wks');
-var uid = __webpack_require__(66);
-var Symbol = __webpack_require__(26).Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -566,42 +549,7 @@ module.exports = invariant;
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-module.exports = isObjectLike;
-
-
-/***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -669,6 +617,58 @@ if (__DEV__) {
 }
 
 module.exports = warning;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(94)('wks');
+var uid = __webpack_require__(66);
+var Symbol = __webpack_require__(26).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
 
 
 /***/ }),
@@ -1618,7 +1618,7 @@ module.exports = baseRest;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(280),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -1761,7 +1761,7 @@ module.exports = nativeCreate;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(22),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -2048,7 +2048,7 @@ module.exports = toInteger;
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(24),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /**
  * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -2468,7 +2468,7 @@ module.exports = function (name) {
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.f = __webpack_require__(17);
+exports.f = __webpack_require__(19);
 
 
 /***/ }),
@@ -2479,7 +2479,7 @@ __webpack_require__(331);
 var global = __webpack_require__(26);
 var hide = __webpack_require__(40);
 var Iterators = __webpack_require__(37);
-var TO_STRING_TAG = __webpack_require__(17)('toStringTag');
+var TO_STRING_TAG = __webpack_require__(19)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
   'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
@@ -2502,7 +2502,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 var def = __webpack_require__(25).f;
 var has = __webpack_require__(31);
-var TAG = __webpack_require__(17)('toStringTag');
+var TAG = __webpack_require__(19)('toStringTag');
 
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
@@ -2686,7 +2686,7 @@ module.exports = function (fn, that, length) {
 
 var baseGetTag = __webpack_require__(22),
     isArray = __webpack_require__(13),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var stringTag = '[object String]';
@@ -3241,7 +3241,7 @@ module.exports = inRange;
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(98);
-var TAG = __webpack_require__(17)('toStringTag');
+var TAG = __webpack_require__(19)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
 
@@ -3269,7 +3269,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(108);
-var ITERATOR = __webpack_require__(17)('iterator');
+var ITERATOR = __webpack_require__(19)('iterator');
 var Iterators = __webpack_require__(37);
 module.exports = __webpack_require__(15).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
@@ -3526,7 +3526,7 @@ module.exports = equalArrays;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqualDeep = __webpack_require__(231),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /**
  * The base implementation of `_.isEqual` which supports partial comparisons
@@ -4231,7 +4231,7 @@ var $fails = __webpack_require__(38);
 var shared = __webpack_require__(94);
 var setToStringTag = __webpack_require__(90);
 var uid = __webpack_require__(66);
-var wks = __webpack_require__(17);
+var wks = __webpack_require__(19);
 var wksExt = __webpack_require__(88);
 var wksDefine = __webpack_require__(87);
 var enumKeys = __webpack_require__(325);
@@ -4495,7 +4495,7 @@ var Iterators = __webpack_require__(37);
 var $iterCreate = __webpack_require__(334);
 var setToStringTag = __webpack_require__(90);
 var getPrototypeOf = __webpack_require__(139);
-var ITERATOR = __webpack_require__(17)('iterator');
+var ITERATOR = __webpack_require__(19)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
@@ -5341,7 +5341,7 @@ module.exports = __webpack_require__(172);
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(22),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]';
@@ -5376,7 +5376,7 @@ module.exports = isBoolean;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(22),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var numberTag = '[object Number]';
@@ -5452,7 +5452,7 @@ module.exports = uniq;
 
 var baseGetTag = __webpack_require__(22),
     getPrototype = __webpack_require__(180),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var objectTag = '[object Object]';
@@ -8774,7 +8774,7 @@ Input_Input.create = createShorthandFactory(Input_Input, function (type) {
 });
 /* harmony default export */ var elements_Input_Input = (Input_Input);
 // EXTERNAL MODULE: ./node_modules/warning/warning.js
-var warning = __webpack_require__(20);
+var warning = __webpack_require__(18);
 var warning_default = /*#__PURE__*/__webpack_require__.n(warning);
 
 // EXTERNAL MODULE: ./node_modules/history/node_modules/warning/browser.js
@@ -8782,7 +8782,7 @@ var browser = __webpack_require__(14);
 var browser_default = /*#__PURE__*/__webpack_require__.n(browser);
 
 // EXTERNAL MODULE: ./node_modules/invariant/browser.js
-var invariant_browser = __webpack_require__(18);
+var invariant_browser = __webpack_require__(17);
 var invariant_browser_default = /*#__PURE__*/__webpack_require__.n(invariant_browser);
 
 // CONCATENATED MODULE: ./node_modules/resolve-pathname/index.js
@@ -10159,6 +10159,89 @@ var matchPath = function matchPath(pathname) {
 };
 
 /* harmony default export */ var es_matchPath = (matchPath);
+// CONCATENATED MODULE: ./node_modules/react-router/es/Switch.js
+function Switch_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function Switch_possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function Switch_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+/**
+ * The public API for rendering the first <Route> that matches.
+ */
+
+var Switch_Switch = function (_React$Component) {
+  Switch_inherits(Switch, _React$Component);
+
+  function Switch() {
+    Switch_classCallCheck(this, Switch);
+
+    return Switch_possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+  }
+
+  Switch.prototype.componentWillMount = function componentWillMount() {
+    invariant_browser_default()(this.context.router, "You should not use <Switch> outside a <Router>");
+  };
+
+  Switch.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    warning_default()(!(nextProps.location && !this.props.location), '<Switch> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.');
+
+    warning_default()(!(!nextProps.location && this.props.location), '<Switch> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.');
+  };
+
+  Switch.prototype.render = function render() {
+    var route = this.context.router.route;
+    var children = this.props.children;
+
+    var location = this.props.location || route.location;
+
+    var match = void 0,
+        child = void 0;
+    react_default.a.Children.forEach(children, function (element) {
+      if (match == null && react_default.a.isValidElement(element)) {
+        var _element$props = element.props,
+            pathProp = _element$props.path,
+            exact = _element$props.exact,
+            strict = _element$props.strict,
+            sensitive = _element$props.sensitive,
+            from = _element$props.from;
+
+        var path = pathProp || from;
+
+        child = element;
+        match = es_matchPath(location.pathname, { path: path, exact: exact, strict: strict, sensitive: sensitive }, route.match);
+      }
+    });
+
+    return match ? react_default.a.cloneElement(child, { location: location, computedMatch: match }) : null;
+  };
+
+  return Switch;
+}(react_default.a.Component);
+
+Switch_Switch.contextTypes = {
+  router: prop_types_default.a.shape({
+    route: prop_types_default.a.object.isRequired
+  }).isRequired
+};
+Switch_Switch.propTypes = {
+  children: prop_types_default.a.node,
+  location: prop_types_default.a.object
+};
+
+
+/* harmony default export */ var es_Switch = (Switch_Switch);
+// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Switch.js
+// Written in this round about way for babel-transform-imports
+
+
+/* harmony default export */ var react_router_dom_es_Switch = (es_Switch);
 // CONCATENATED MODULE: ./node_modules/react-router/es/Route.js
 var Route_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -10418,9 +10501,9 @@ const ConRouter = () => react_default.a.createElement(
 	es_BrowserRouter,
 	null,
 	react_default.a.createElement(
-		'div',
+		react_router_dom_es_Switch,
 		null,
-		react_default.a.createElement(react_router_dom_es_Route, { path: '/', component: core_Container }),
+		react_default.a.createElement(react_router_dom_es_Route, { exact: true, path: '/', component: core_Container }),
 		react_default.a.createElement(react_router_dom_es_Route, { path: '/:marcid', component: Viewer })
 	)
 );
@@ -11440,7 +11523,7 @@ module.exports = _nonIterableSpread;
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(108);
-var ITERATOR = __webpack_require__(17)('iterator');
+var ITERATOR = __webpack_require__(19)('iterator');
 var Iterators = __webpack_require__(37);
 module.exports = __webpack_require__(15).isIterable = function (it) {
   var O = Object(it);
@@ -11470,7 +11553,7 @@ module.exports = __webpack_require__(184);
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ITERATOR = __webpack_require__(17)('iterator');
+var ITERATOR = __webpack_require__(19)('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -11515,7 +11598,7 @@ module.exports = function (object, index, value) {
 
 // check on default Array iterator
 var Iterators = __webpack_require__(37);
-var ITERATOR = __webpack_require__(17)('iterator');
+var ITERATOR = __webpack_require__(19)('iterator');
 var ArrayProto = Array.prototype;
 
 module.exports = function (it) {
@@ -13155,7 +13238,7 @@ module.exports = nodeUtil;
 
 var baseGetTag = __webpack_require__(22),
     isLength = __webpack_require__(78),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -14212,7 +14295,7 @@ module.exports = baseInvoke;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(22),
-    isObjectLike = __webpack_require__(19);
+    isObjectLike = __webpack_require__(20);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -15485,7 +15568,7 @@ var setToStringTag = __webpack_require__(90);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(40)(IteratorPrototype, __webpack_require__(17)('iterator'), function () { return this; });
+__webpack_require__(40)(IteratorPrototype, __webpack_require__(19)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
