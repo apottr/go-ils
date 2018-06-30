@@ -30,8 +30,27 @@ func setDFieldMARC(r *marc.Record, tag, sf, value string) {
 	r.AddDField(df)
 }
 
-func convertMARC(r *marc.Record) string {
-	return ""
+func isCField(ident string) bool {
+
+}
+
+func convertFromMARC(r *marc.Record) []byte {
+
+}
+
+func convertFromJSON(j []byte) (*marc.Record, error) {
+	var mar map[string]string
+	rec := marc.NewRecord()
+	err := json.Unmarshal(j, mar)
+	if err != nil {
+		return &marc.Record{}, error
+	}
+	for k, v := range mar {
+		if v != "" {
+
+		}
+	}
+
 }
 
 func setTypeMARC(r *marc.Record, tstr string) {
