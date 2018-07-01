@@ -30,29 +30,6 @@ func setDFieldMARC(r *marc.Record, tag, sf, value string) {
 	r.AddDField(df)
 }
 
-func isCField(ident string) bool {
-
-}
-
-func convertFromMARC(r *marc.Record) []byte {
-
-}
-
-func convertFromJSON(j []byte) (*marc.Record, error) {
-	var mar map[string]string
-	rec := marc.NewRecord()
-	err := json.Unmarshal(j, mar)
-	if err != nil {
-		return &marc.Record{}, error
-	}
-	for k, v := range mar {
-		if v != "" {
-
-		}
-	}
-
-}
-
 func setTypeMARC(r *marc.Record, tstr string) {
 	setCFieldMARC(r, "006", tstr)
 }
@@ -74,6 +51,15 @@ func saveMARC(r *marc.Record) error {
 		return err
 	}
 	return nil
+}
+
+func getMARCRecord(upc string) (*marc.Record, error) {
+	f, err := os.OpenFile(fmt.Sprintf("records/%s.marc", upc), os.O_RDONLY, 0755)
+	if err != nil {
+		return &marc.Record{}, err
+	}
+	d := marc.NewDecoder(f, marc.MARC)
+	return d.Decode()
 }
 
 func getMARCRecords() (string, error) {

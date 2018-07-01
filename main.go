@@ -17,15 +17,41 @@ func renderPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleMARC(w http.ResponseWriter, r *http.Request) {
+	var upc, title, typ string
 	log.Printf("%s /marc", r.Method)
 	query := r.URL.Query()
 	if r.Method == "GET" {
-		if _, ok := query["upc"]; ok {
-			r := createEmptyMARC(r.URL.Query().Get("upc"))
+		mupc, upcOK := query["upc"]
+		upc = mupc[0]
+		mtitle, titleOK := query["title"]
+		if titleOK {
+			title = mtitle[0]
+		}
+		mtype, typeOK := query["type"]
+		if typeOK {
+			typ = mtype[0]
+		}
+		if upcOK && !titleOK && !typeOK {
+			r := createEmptyMARC(upc)
 			err := saveMARC(r)
 			if err != nil {
 				log.Println(err)
 			}
+			fmt.Fprint(w, "created MARC")
+		} else if titleOK && upcOK && !typeOK {
+			r, err := getMARCRecord(upc)
+			if err != nil {
+				log.Println(err)
+			}
+			setNameMARC(r, title)
+			fmt.Fprintf(w, "added title %s to MARC %s", title, upc)
+		} else if typeOK && upcOK && !titleOK {
+			r, err := getMARCRecord(upc)
+			if err != nil {
+				log.Println(err)
+			}
+			setTypeMARC(r, typ)
+			fmt.Fprintf(w, "added type %s to MARC %s", typ, upc)
 		} else if len(query) == 0 {
 			s, err := getMARCRecords()
 			if err != nil {
