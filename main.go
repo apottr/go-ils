@@ -41,7 +41,7 @@ func handleMARC(w http.ResponseWriter, r *http.Request) {
 		} else if titleOK && upcOK && !typeOK {
 			r, err := getMARCRecord(upc)
 			if err != nil {
-				log.Println(err)
+				log.Printf("error: %s\n", err)
 			}
 			setNameMARC(r, title)
 			fmt.Fprintf(w, "added title %s to MARC %s", title, upc)

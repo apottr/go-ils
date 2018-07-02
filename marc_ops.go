@@ -44,8 +44,11 @@ func saveMARC(r *marc.Record) error {
 	if err != nil {
 		return err
 	}
-
-	r.DumpTo(f, false)
+	e := marc.NewEncoder(f, marc.MARC)
+	er := e.Encode(r)
+	if er != nil {
+		return er
+	}
 
 	if err := f.Close(); err != nil {
 		return err
